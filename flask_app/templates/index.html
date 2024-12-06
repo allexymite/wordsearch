@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Search Generator</title>
+</head>
+<body>
+    <h1>Word Search Generator</h1>
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form method="POST" enctype="multipart/form-data">
+        <label for="words">Enter words (separated by commas):</label><br>
+        <textarea name="words" id="words" rows="5" cols="40"></textarea><br><br>
+        <label for="file">Or upload a text file:</label><br>
+        <input type="file" name="file" id="file"><br><br>
+        <button type="submit">Generate Word Search</button>
+    </form>
+    {% if success %}
+    <h2>Your Word Search:</h2>
+    <img src="{{ image_path }}" alt="Word Search Image">
+    <p><a href="/download/word_search_image.png">Download as Image</a></p>
+    <p><a href="/download/word_search.docx">Download as DOCX</a></p>
+    {% endif %}
+</body>
+</html>
