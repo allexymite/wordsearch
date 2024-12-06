@@ -1,3 +1,6 @@
+# TODO
+# # finish security updates from chatgpt
+
 from flask import Flask, render_template, request, send_file
 import os
 import random
@@ -13,6 +16,19 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
+
+# validate input
+def validate_input(words):
+    """Validate the words input to ensure it's safe and meets expected format."""
+    if not words:
+        return False
+    # Allow only alphabetic characters and commas (modify as needed for your use case)
+    for word in words.split(","):
+        word = word.strip()
+        if not word.isalpha():
+            return False
+    return True
+
 
 # making the word search
 def generate_word_search(words, size=15):
@@ -129,6 +145,7 @@ def index():
                 words = f.read()
         if not words:
             return render_template("index.html", error="Please provide words.")
+        
         words = [word.strip() for word in words.split(",")]
 
         # Generate Word Search
